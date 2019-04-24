@@ -35,8 +35,28 @@ public class Sorting {
 		return node;
 	}
 	
-	public static void mergeSort(int[] data, int first, int n){
+	public static void mergeSort(int[] data, int start, int end){
+		int mid;
 		
+		if(end > 1){
+			mid = (start + end)/2;
+			
+			mergeSort(data, start, mid);
+			mergeSort(data, mid+1, end);
+			
+			merge(data, start, mid, end);
+		}
+	}
+	
+	public static void merge(int[] data, int start, int mid, int end){
+		int tempStart = start;
+		int tempMid = mid+1;
+		
+		int[] tempData = int[data.length];
+		
+		for(int i = start; i < end; i++){
+			if(tempMid > mid)
+		}
 	}
 	
 	public static Node mergeSort(Node head){
