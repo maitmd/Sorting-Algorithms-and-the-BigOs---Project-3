@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Sorting {
 
@@ -36,35 +37,90 @@ public class Sorting {
 	}
 	
 	public static void mergeSort(int[] data, int start, int end){
+		System.out.println("sort");
 		int mid;
 		
-		if(end > 1){
-			mid = (start + end)/2;
+		if(start < end){
+			mid = end/2;
 			
+			System.out.println(data[start]);
+			System.out.println(data[mid]);
 			mergeSort(data, start, mid);
 			mergeSort(data, mid+1, end);
-			
 			merge(data, start, mid, end);
 		}
 	}
 	
-	public static void merge(int[] data, int start, int mid, int end){
-		int tempStart = start;
-		int tempMid = mid+1;
+	private static void merge(int[] data, int start, int mid, int end){
+		System.out.println("merge");
+		int left = (start+end)/2;
+		int right = left+1;
+		int counter;
+		int L[] = new int[left];
+		int R[] = new int[right];
+		for(counter = 0; counter < left; counter++){
+			L[counter] = data[counter];
+		}
+
+		for(counter = 0;counter < right; counter++){
+			R[counter] = data[counter];
+		}
+
+		int i = 0;
+		int j = 0;
+		int temp;
+		counter = 0;
 		
-		int[] tempData = int[data.length];
+		while(i < left && j < right && counter < data.length){
+			System.out.println("Small: " + L[i] + " " + R[j]);
+			if(L[i] <= R[j]){
+				data[counter] = L[i];
+				i++;
+			}else{
+				data[counter] = R[j];
+				j++;
+			}
+			
+			System.out.println("Counter: " + data[counter]);
+			counter++;
+		}
 		
-		for(int i = start; i < end; i++){
-			if(tempMid > mid)
+		if(i < left && counter < data.length){
+			while(i < left){
+				data[counter] = L[i];
+				i++;
+			}
+		}else if(j < right && counter < data.length){
+			while(j < right){
+				data[counter] = R[j];
+				j++;
+			}
 		}
 	}
 	
 	public static Node mergeSort(Node head){
 		Node node = head;
+		int length = node.getListLength();
+		int[] arr = new int[length];
+		int i = 0;
+		
+		while(i < length){
+			arr[i] = node.getData();
+			node = node.getLink();
+			i++;
+		}
+
+		mergeSort(arr, 0, arr.length);
+		
+		Node temp = new Node(arr[0], null);
+		for(int tempint : arr){
+			temp.addNodeAfter(tempint);
+		}
+		
+		node = temp;
 		
 		return node;
 	}
-	
 	public static void heapSort(int[] data){
 		
 	}
