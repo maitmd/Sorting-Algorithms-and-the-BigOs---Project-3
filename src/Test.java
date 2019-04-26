@@ -23,7 +23,7 @@ public class Test {
 		//System.out.println("Insertion Sort: Node");
 		//head.displayData();
 		
-		int[] data2 = {1, 6, 14, 12};
+		int[] data2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 		Sorting.mergeSort(data2, 0, data2.length);
 		System.out.println("Merge Sort: Array");
 		for(int temp : data2){
