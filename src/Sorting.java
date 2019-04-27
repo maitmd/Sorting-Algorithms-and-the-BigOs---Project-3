@@ -37,106 +37,45 @@ public class Sorting {
 	}
 	
 	public static int[] mergeSort(int[] data, int start, int end){
-		System.out.println("Sort Start");
-		int mid = (end+start)/2;
-		int[] temp = new int[end-start];
-		int j = 0;
-		
-		System.out.println(" Start " + start);
-		System.out.println(" End " + end);
-		
-		for(int i = start; i < data.length && j < temp.length; i++) {
-			temp[j++] = data[i];
-		}
-		
-		for(int tempd : temp){
-			System.out.println("Current Data " + tempd);
-		}
-		
 		if(start < end){
+			int mid = (end+start)/2;
 			
-			System.out.println("  Split 1");
 			mergeSort(data, start, mid);
-			
-			System.out.println("  Split 2");
 			mergeSort(data, mid+1, end);
 			
-			System.out.println("Merging");
-			temp = merge(temp, start, end);
-			j = 0;
-			for(int i = start; i < end && j < temp.length; i++) {
-				data[i] = temp[j++];
-			}
-			
-			for(int tempd : data){
-				System.out.println("Sorted Data " + tempd);
-			}
+			merge(data, start, mid, end);
 		}
 		
 		return data;
 	}
-	private static int[] merge(int[] data, int start, int end){
-		int left = (end-start)/2;
-		int right = left+1;
-		int counter = 0;
-		int L[] = new int[left+1];
-		int R[] = new int[right+1];
-		int i = 0;
-		int j = 0;
+	private static void merge(int[] data, int start, int mid, int end){
 		
-		System.out.println("   Data Length " + data.length);
-		System.out.println("   Start: " + start);
-		System.out.println("   End: " + end);
-		System.out.println("    Left: " + left);
-		System.out.println("    Right: " + right);
-
-		if(data.length > 1) {
-			for(i = 0; i < left && counter < data.length; i++){
-				L[i] = data[counter++];
-				System.out.println("  L[i] " + L[i]);
-			}
-	
-			for(j = 0 ; j < right && counter < data.length; j++){
-				R[j] = data[counter++];
-				System.out.println("  R[j] " + R[j]);
-			}
-			
-			i = 0;
-			j = 0;
-			counter = 0;
-			
-			while(i < left && j < right && counter < data.length){
-				System.out.println("  Sub Arr: " + L[i] + " " + R[j]);
-				System.out.println("  Counter: " + counter);
-				System.out.println("  I " + i);
-				System.out.println("  J " + j);
-				System.out.println("  Data[Counter] " + data[counter]);
-				if(L[i] < R[j]){
-					data[counter] = R[j];
-					j++;
-				}else{
-					data[counter] = L[i];
-					i++;
-				}
-				
-				counter++;
-			}
-			
-			while(i < left) {
-				data[counter++] = L[i++];
-			}
-			
-			while(j < right & counter < data.length) {
-				data[counter++] = R[j++];
-			}
-		}
+		int[] temp = new int[data.length];
+		for (int i = start; i < end; i++) {
+            temp[i] = data[i];
+        }
 		
-		for(int temp : data){
-			System.out.println("Result " + temp);
-		}
-		
-		return data;
-	}
+        int i = start;
+        int j = mid + 1;
+        int k = start;
+        
+        while (i < mid && j < end) {
+            if (temp[i] <= temp[j]) {
+                data[k] = temp[j];
+                j++;
+            } else {
+                data[k] = temp[i];
+                i++;
+            }
+            k++;
+        }
+        while (i <= mid) {
+            data[k] = temp[i];
+            k++;
+            i++;
+        }
+ 
+    }
 	
 	public static Node mergeSort(Node head){
 		Node node = head;
@@ -150,7 +89,7 @@ public class Sorting {
 			i++;
 		}
 
-		mergeSort(arr, 0, arr.length);
+		arr = mergeSort(arr, 0, arr.length);
 		
 		Node temp = new Node(arr[0], null);
 		for(int tempint : arr){
