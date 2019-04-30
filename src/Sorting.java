@@ -38,38 +38,38 @@ public class Sorting {
 	
 	public static int[] mergeSort(int[] data, int start, int end){
 		if(start < end){
-			int mid = (end+start)/2;
-			
-			mergeSort(data, start, mid);
-			mergeSort(data, mid+1, end);
-			
+			int mid = ((end+start)/2);
+		     
+		    mergeSort(data, start, mid);
+		    mergeSort(data, mid+1, end);
+		    //mergeSort(data, start, mid);
+		    
 			merge(data, start, mid, end);
 		}
 		
 		return data;
 	}
 	private static void merge(int[] data, int start, int mid, int end){
-		
 		int[] temp = new int[data.length];
 		for (int i = start; i < end; i++) {
             temp[i] = data[i];
         }
 		
         int i = start;
-        int j = mid + 1;
+        int j = mid;
         int k = start;
         
-        while (i < mid && j < end) {
-            if (temp[i] <= temp[j]) {
+        while (i < mid && j < end && k < data.length) {
+            if (temp[i] < temp[j]){
                 data[k] = temp[j];
                 j++;
-            } else {
+            }else{
                 data[k] = temp[i];
                 i++;
             }
             k++;
         }
-        while (i <= mid) {
+        while (i < mid && k < data.length) {
             data[k] = temp[i];
             k++;
             i++;
